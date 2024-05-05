@@ -3,7 +3,7 @@
 # Run server
 `go run server/server.go`
 
-# Send even via client
+# Send event via client
 `go run client/api.go`
 
 # Send via API
