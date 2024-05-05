@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-time Events</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px auto;
+            max-width: 600px;
+        }
+        li {
+            background-color: #f4f4f4;
+            padding: 10px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        li:hover {
+            background-color: #eaeaea;
+        }
+    </style>
+</head>
+<body>
+    <h1>Real-time Events</h1>
+    <ul id="events-list"></ul>
+
+    <script>
+        // Create a WebSocket connection
+        const socket = new WebSocket('ws://localhost:8080/ws');
+    
+        // Event handler for incoming messages
+        socket.onmessage = function(event) {
+            const eventData = JSON.parse(event.data);
+            const eventsList = document.getElementById('events-list');
+    
+            // Create a new list item
+            const listItem = document.createElement('li');
+            listItem.textContent = `${eventData.event}: ${eventData.message}`;
+    
+            // Insert the new list item at the beginning of the list
+            eventsList.insertBefore(listItem, eventsList.firstChild);
+        };
+    </script>
+</body>
+</html>
